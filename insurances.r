@@ -23,7 +23,9 @@ insurances <- insurances[2:6]
 summary(insurances)
 table(insurances[1])
 
+####################
 # Explore the data
+####################
 
 library(Rcmdr)
 
@@ -78,7 +80,10 @@ insurances$`Sexo (1 1 0 D)` <- sapply(insurances$`Sexo (1 1 0 D)`, function(x) {
 })
 
 
+####################################
 # Cluster analysis
+####################################
+
 library(stats)
 
 # Fix the seed so that the experiment is reproducible
