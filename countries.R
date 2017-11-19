@@ -54,7 +54,7 @@ cluster_number_plot <- function(data, maxNumberOfClusters=20) {
       wss[i] <- sum(tmp_cluster$withinss)
   }
 
-  plot(1:maxNumberOfClusters, wss, type="b", xlab="Number of Clusters",
+  plot(2:(maxNumberOfClusters+1), wss, type="b", xlab="Number of Clusters",
       main="Assessing the Optimal Number of Clusters with the Elbow Method",
        ylab="Within groups sum of squares")
 }

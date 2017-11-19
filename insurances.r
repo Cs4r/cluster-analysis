@@ -13,7 +13,6 @@ sapply(insurances, class)
 dim(insurances)
 
 # It seems that the first column has different values for each row, therefore is irrelevant
-dim(insurances[1])
 dim(unique(insurances[1]))
 
 # Remove column "Numero incidente"
@@ -85,6 +84,7 @@ insurances$`Sexo (1 1 0 D)` <- sapply(insurances$`Sexo (1 1 0 D)`, function(x) {
 ####################################
 
 library(stats)
+library(cluster)
 
 # Fix the seed so that the experiment is reproducible
 set.seed(42);
@@ -100,7 +100,7 @@ cluster_number_plot <- function(data) {
       wss[i] <- sum(tmp_cluster$withinss)
   }
 
-  plot(1:20, wss, type="b", xlab="Number of Clusters",
+  plot(2:21, wss, type="b", xlab="Number of Clusters",
       main="Assessing the Optimal Number of Clusters with the Elbow Method",
        ylab="Within groups sum of squares")
 }
@@ -118,12 +118,17 @@ insurancesAndClass <- data.frame(insurances, cluster$cluster)
 # Visualization
 library(fpc)
 
-plotcluster(insurances, clus$cluster)
+plotcluster(insurances, cluster$cluster)
 
-clusplot(insurances, clus$cluster, color=TRUE, shade=TRUE,
+clusplot(insurances, cluster$cluster, color=TRUE, shade=TRUE,
          labels=6, lines=0)
 
 with(insurancesAndClass, pairs(insurances, col=c(1:5)[cluster$cluster]))
+
+par(mfrow =c(1,3))
+plot(insurances[, c(2,5)], col =(cluster$cluster +1) , main="K-Means result with 6 clusters", pch=20, cex=2)
+plot(insurances[, c(3,5)], col =(cluster$cluster +1) , main="K-Means result with 6 clusters", pch=20, cex=2)
+plot(insurances[, c(4,5)], col =(cluster$cluster +1) , main="K-Means result with 6 clusters", pch=20, cex=2)
 
 ##############################################################
 # Let's find the clusters without taking into account the Sex
